@@ -20,10 +20,9 @@ public class Utility {
     public static final int COL_MOVIE_ID = 1;
     public static final int COL_TITLE = 2;
     public static final int COL_OVERVIEW = 3;
-    public static final int COL_IMAGE = 3;
-    public static final int COL_RELEASE_DATE = 4;
-    public static final int COL_RATING = 5;
-
+    public static final int COL_RELEASE_DATE = 5;
+    public static final int COL_RATING = 4;
+    public static final int COL_IMAGE = 8;
 
     public static ContentValues getContentValues(MovieRecord movieRecord) {
         ContentValues movieValues = new ContentValues();
@@ -58,21 +57,24 @@ public class Utility {
                 null, null,   // selectionArgs
                 null    // sort order
         );
-
+        Log.d("Utility", "Num records from DB is" + cursor.getCount());
         if (!cursor.moveToFirst()) {
             return new ArrayList<MovieRecord>();
         }
         List<MovieRecord> records = new ArrayList<>();
-        while(cursor.isLast()) {
-            MovieRecord record =  new MovieRecord();
-            record.setMovieId(Integer.toString(cursor.getInt(COL_MOVIE_ID)));
-            record.setOriginalTitle(cursor.getString(COL_TITLE));
-            record.setOverview(cursor.getString(COL_OVERVIEW));
-            record.setReleaseDate(cursor.getString(COL_RELEASE_DATE));
-            record.setUserRating(cursor.getDouble(COL_RATING));
-            record.setMovieImageThumbnailPath(cursor.getString(COL_IMAGE));
-            records.add(record);
-            cursor.moveToNext();
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                MovieRecord record =  new MovieRecord();
+                record.setMovieId(Integer.toString(cursor.getInt(COL_MOVIE_ID)));
+                record.setOriginalTitle(cursor.getString(COL_TITLE));
+                record.setOverview(cursor.getString(COL_OVERVIEW));
+                record.setReleaseDate(cursor.getString(COL_RELEASE_DATE));
+                record.setUserRating(cursor.getDouble(COL_RATING));
+                record.setMovieImageThumbnailPath(cursor.getString(COL_IMAGE));
+                records.add(record);
+            } while (cursor.moveToNext());
+        } else {
+            return new ArrayList<MovieRecord>();
         }
         cursor.close();
         Log.d("Utility", "Num records" + records.size());

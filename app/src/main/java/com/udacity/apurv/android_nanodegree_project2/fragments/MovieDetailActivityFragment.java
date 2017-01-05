@@ -69,7 +69,7 @@ public class MovieDetailActivityFragment extends Fragment {
     ImageView imageView;
 
     @Bind(R.id.favImage)
-    Button favorite;
+    ImageView favorite;
 
     @Bind(R.id.trailers_recycler_view)
     RecyclerView movieTrailersRecyclerView;
@@ -114,6 +114,7 @@ public class MovieDetailActivityFragment extends Fragment {
             favorite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d(LOG_TAG, "Movie Record" + movieRecord.getMovieImageThumbnailPath());
                     new UpdateFavoriteMovieTask(getActivity(), movieRecord, favorite).execute();
                 }
             });

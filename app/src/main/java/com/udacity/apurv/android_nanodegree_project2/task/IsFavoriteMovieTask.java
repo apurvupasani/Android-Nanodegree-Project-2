@@ -2,8 +2,7 @@ package com.udacity.apurv.android_nanodegree_project2.task;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.udacity.apurv.android_nanodegree_project2.R;
 import com.udacity.apurv.android_nanodegree_project2.data.Utility;
@@ -17,12 +16,12 @@ public class IsFavoriteMovieTask extends AsyncTask<Void, Void, Boolean> {
     private Context mContext;
     private MovieRecord movieRecord;
     private Boolean performAction;
-    private Button favButton;
+    private ImageView imageView;
 
-    public IsFavoriteMovieTask(Context mContext, MovieRecord movieRecord, Button favorite) {
+    public IsFavoriteMovieTask(Context mContext, MovieRecord movieRecord, ImageView favorite) {
         this.mContext = mContext;
         this.movieRecord = movieRecord;
-        this.favButton = favorite;
+        this.imageView = favorite;
     }
 
     @Override
@@ -34,9 +33,9 @@ public class IsFavoriteMovieTask extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean isFavorite) {
             if (isFavorite) {
-                favButton.setText("Favorite");
+                imageView.setImageResource(android.R.drawable.btn_star_big_on);
             } else {
-                favButton.setText("Not Favorite");
+                imageView.setImageResource(android.R.drawable.btn_star_big_off);
             }
     }
 }

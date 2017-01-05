@@ -3,6 +3,7 @@ package com.udacity.apurv.android_nanodegree_project2.task;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import com.udacity.apurv.android_nanodegree_project2.R;
@@ -23,10 +24,12 @@ public class FetchMoviesTask extends AsyncTask<String, Void, List<MovieRecord>> 
 
     private MovieArrayAdapter movieArrayAdapter;
     private Context context;
+    private GridView view;
 
-    public FetchMoviesTask(@NonNull final MovieArrayAdapter movieArrayAdapter, Context context) {
+    public FetchMoviesTask(@NonNull final MovieArrayAdapter movieArrayAdapter,@NonNull final Context context,@NonNull final GridView view) {
         this.movieArrayAdapter = movieArrayAdapter;
         this.context = context;
+        this.view = view;
     }
     private String LOG_TAG = FetchMoviesTask.class.getSimpleName();
 
@@ -62,6 +65,7 @@ public class FetchMoviesTask extends AsyncTask<String, Void, List<MovieRecord>> 
                 Log.d(LOG_TAG,"Executed for " + record);
                 movieArrayAdapter.add(record);
             }
+            view.setAdapter(movieArrayAdapter);
         } else {
             Toast.makeText(context, "Unable to show the movie information", Toast.LENGTH_LONG).show();
         }

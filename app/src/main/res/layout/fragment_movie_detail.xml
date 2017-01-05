@@ -61,14 +61,6 @@
                 android:orientation="vertical"
                 android:paddingRight="10dp">
 
-                <LinearLayout
-                    android:id="@+id/layout_release_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="top"
-                    android:orientation="vertical">
-
                     <TextView
                         android:id="@+id/release_date_tab"
                         android:layout_width="match_parent"
@@ -79,7 +71,8 @@
                         android:text="Release Date"
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                        android:textColor="@android:color/background_dark" />
+                        android:textColor="@android:color/background_dark"
+                        android:layout_weight="0.15"/>
 
                     <TextView
                         android:id="@+id/release_date"
@@ -92,19 +85,8 @@
                         android:text="15th Aug, 2016"
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                        android:textColor="@android:color/background_dark" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_rating"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="bottom"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:orientation="vertical">
+                        android:textColor="@android:color/background_dark"
+                        android:layout_weight="0.15"/>
 
                     <TextView
                         android:id="@+id/rating_tab"
@@ -117,7 +99,8 @@
                         android:text="Rating"
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                        android:textColor="@android:color/background_dark" />
+                        android:textColor="@android:color/background_dark"
+                        android:layout_weight="0.15"/>
 
                     <TextView
                         android:id="@+id/user_rating"
@@ -128,26 +111,28 @@
                         android:layout_marginTop="@dimen/activity_horizontal_margin"
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                        android:textColor="@android:color/background_dark" />
-                </LinearLayout>
+                        android:textColor="@android:color/background_dark"
+                        android:layout_weight="0.15"/>
+
+                    <ImageView
+                        android:src="@android:drawable/btn_star_big_off"
+                        android:text="Add to favorites"
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/favImage"
+                        android:clickable="true"
+                        android:layout_weight="0.25"
+                        android:contentDescription="Click this to add to favorites"/>
+
                 <LinearLayout
-                    android:id="@+id/layout_favorite"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical">
+                    android:layout_weight="0.2"
+                    android:gravity="top"
+                    android:orientation="vertical" />
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:id="@+id/favImage"
-                        android:layout_centerInParent="true"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"
-                        android:text="Dummy Text" />
-                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 
@@ -239,4 +224,6 @@
         </LinearLayout>
 
     </LinearLayout>
+
+
 </ScrollView>

@@ -15,6 +15,8 @@ import lombok.Getter;
 import com.udacity.apurv.android_nanodegree_project2.R;
 import com.udacity.apurv.android_nanodegree_project2.entities.MovieReview;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 
 /**
@@ -42,7 +44,7 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
     @Override
     public void onBindViewHolder(MovieReviewAdapter.ViewHolder holder, int position) {
         final MovieReview review = movieReviews.get(position);
-        holder.getAuthor().setText(review.getAuthor());
+        holder.getAuthor().setText(StringUtils.capitalize(review.getAuthor()));
         holder.getContent().setText(review.getContent());
         Log.d(LOG_TAG, "In On BindViewHolder" );
     }

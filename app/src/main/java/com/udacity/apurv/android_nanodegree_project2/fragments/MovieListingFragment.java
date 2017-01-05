@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,6 +28,9 @@ import com.udacity.apurv.android_nanodegree_project2.task.FetchMoviesTask;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 import static com.udacity.apurv.android_nanodegree_project2.constants.MovieDBAPIConstants.MOVIE_DB_ERROR_MESSAGE;
 
 /**
@@ -36,6 +40,9 @@ public class MovieListingFragment extends Fragment {
 
     private static final String LOG_TAG = MovieListingFragment.class.getSimpleName();
     private MovieArrayAdapter movieArrayAdapter;
+
+    @Bind(R.id.gridview_movies)
+    GridView gridView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,11 +54,12 @@ public class MovieListingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        final View rootView = inflater.inflate(R.layout.movie_listing_fragment, container, false);
+        ButterKnife.bind(this, rootView);
+
         final List<MovieRecord> movieRecords = new ArrayList<MovieRecord>();
         movieArrayAdapter = new MovieArrayAdapter(getActivity(), R.layout.movie_listing_fragment, R.id.grid_item_movie_imageview, movieRecords);
 
-        final View rootView = inflater.inflate(R.layout.movie_listing_fragment, container, false);
-        final GridView gridView = (GridView) rootView.findViewById(R.id.gridview_movies);
         if (gridView != null && movieArrayAdapter != null) {
             gridView.setAdapter(movieArrayAdapter);
             //For each item, go to appropriate detail page
@@ -80,7 +88,7 @@ public class MovieListingFragment extends Fragment {
     private void performPopularMovieTaskExecution() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String sortOrder = preferences.getString(getString(R.string.pref_sort_order_key), "");
-        FetchMoviesTask task = new FetchMoviesTask(movieArrayAdapter, getContext());
+        FetchMoviesTask task = new FetchMoviesTask(movieArrayAdapter, getContext(), gridView);
         task.execute(sortOrder);
     }
 
