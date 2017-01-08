@@ -67,9 +67,10 @@ public class MovieListingFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     final MovieRecord record = movieArrayAdapter.getItem(position);
-                    final Intent intent = new Intent(getActivity(), MovieDetailActivity.class)
+                    /*final Intent intent = new Intent(getActivity(), MovieDetailActivity.class)
                             .putExtra(ActivityConstants.MOVIE_RECORD_INTENT, record);
-                    startActivity(intent);
+                    startActivity(intent);*/
+                    ((MovieListingBundleCallback) getActivity()).onMovieItemSelected(record);
                 }
             });
         } else {
@@ -102,4 +103,7 @@ public class MovieListingFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    public interface MovieListingBundleCallback {
+        void onMovieItemSelected(MovieRecord movieRecord);
+    }
 }

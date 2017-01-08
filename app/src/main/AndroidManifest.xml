@@ -3,6 +3,7 @@
     package="com.udacity.apurv.android_nanodegree_project2">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"

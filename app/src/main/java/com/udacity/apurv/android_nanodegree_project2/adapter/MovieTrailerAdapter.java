@@ -1,5 +1,6 @@
 package com.udacity.apurv.android_nanodegree_project2.adapter;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -41,7 +42,6 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
     public MovieTrailerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.movie_trailer_item, parent, false);
-        Log.d(LOG_TAG, "In On CreateViewHolder" );
         return new ViewHolder(view);
     }
 
@@ -49,15 +49,20 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
     public void onBindViewHolder(MovieTrailerAdapter.ViewHolder holder, final int position) {
         final MovieTrailer trailer = movieTrailers.get(position);
         holder.getName().setText(trailer.getTrailerName());
-        Log.d(LOG_TAG, "In On BindViewHolder" );
         final Context c = holder.name.getContext();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String youtubeVideoId = movieTrailers.get(position).getTrailerKey();
-                String videoURI = MovieDBAPIConstants.MOVIE_DB_YOUTUBE_URL + youtubeVideoId;
-                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(videoURI));
-                c.startActivity(i);
+                try {
+                    Intent appIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(MovieDBAPIConstants.MOVIE_DB_YOUTUBE_URL + youtubeVideoId));
+                    c.startActivity(appIntent);
+                } catch (ActivityNotFoundException ex) {
+                    Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse( MovieDBAPIConstants.MOVIE_DB_YOUTUBE_WEB_URL+ youtubeVideoId));
+                    c.startActivity(webIntent);
+                }
             }
         });
     }

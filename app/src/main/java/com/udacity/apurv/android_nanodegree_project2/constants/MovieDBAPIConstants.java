@@ -38,4 +38,6 @@ public final class MovieDBAPIConstants {
 
     public static final String MOVIE_DB_YOUTUBE_URL = "vnd.youtube:";
 
+    public static final String MOVIE_DB_YOUTUBE_WEB_URL = "http://www.youtube.com/watch?v=";
+
 }

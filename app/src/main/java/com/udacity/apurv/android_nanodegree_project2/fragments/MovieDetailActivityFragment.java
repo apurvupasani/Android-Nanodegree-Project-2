@@ -53,6 +53,8 @@ public class MovieDetailActivityFragment extends Fragment {
 
     private static final String VOTE_AVERAGE_MAX_STR = " / 10";
 
+    private static final String SAVED_STATE_OBJECT = "MOVIE_STATE";
+
     @Bind(R.id.original_title)
     TextView originalTitle;
 
@@ -82,6 +84,7 @@ public class MovieDetailActivityFragment extends Fragment {
 
     public MovieTrailerAdapter trailerAdapter;
     public MovieReviewAdapter reviewAdapter;
+    private MovieRecord movieRecord;
 
     public MovieDetailActivityFragment() {
     }
@@ -90,27 +93,48 @@ public class MovieDetailActivityFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
+
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(SAVED_STATE_OBJECT, movieRecord);
+        super.onSaveInstanceState(outState);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.fragment_movie_detail, container, false);
         ButterKnife.bind(this, rootView);
-        Intent intent = getActivity().getIntent();
-        Log.v(LOG_TAG, "In movie fragment view");
-        if (intent != null && intent.hasExtra(ActivityConstants.MOVIE_RECORD_INTENT)) {
-            final MovieRecord movieRecord = (MovieRecord) intent.getSerializableExtra(ActivityConstants.MOVIE_RECORD_INTENT);
 
-            //Set the information in appropriate fields
-            movieId = movieRecord.getMovieId();
-            originalTitle.setText(movieRecord.getOriginalTitle());
-            overview.setText(movieRecord.getOverview());
-            overview.setMovementMethod(new ScrollingMovementMethod());
-            releaseDate.setText(convertDateToProperFormat(movieRecord.getReleaseDate()));
-            userRating.setText(movieRecord.getUserRating() + VOTE_AVERAGE_MAX_STR);
-            Picasso.with(getContext()).load(MovieDBAPIConstants.MOVIE_DB_IMAGE_BASE_URL_DETAIL + movieRecord.getMovieImageThumbnailPath()).into(imageView);
-            new IsFavoriteMovieTask(getActivity(), movieRecord, favorite).execute();
+
+        Log.v(LOG_TAG, "In movie fragment view");
+        if(savedInstanceState == null || !savedInstanceState.containsKey(SAVED_STATE_OBJECT)) {
+            //Handle tablet layout args
+            if ( getArguments() != null) {
+                movieRecord =  getArguments().getParcelable(ActivityConstants.MOVIE_RECORD_ARG_BUNDLE);
+            } else {
+                Intent intent = getActivity().getIntent();
+                if (intent != null && intent.hasExtra(ActivityConstants.MOVIE_RECORD_INTENT)) {
+                    movieRecord = (MovieRecord) intent.getParcelableExtra(ActivityConstants.MOVIE_RECORD_INTENT);
+                } else {
+                    rootView.setVisibility(View.INVISIBLE);
+                    return rootView;
+                }
+            }
+        } else {
+            //TODO: Put reviews and trailer info in this.
+            movieRecord = savedInstanceState.getParcelable(SAVED_STATE_OBJECT);
+        }
+        //Set the information in appropriate fields
+        movieId = movieRecord.getMovieId();
+        originalTitle.setText(movieRecord.getOriginalTitle());
+        overview.setText(movieRecord.getOverview());
+        overview.setMovementMethod(new ScrollingMovementMethod());
+        releaseDate.setText(convertDateToProperFormat(movieRecord.getReleaseDate()));
+        userRating.setText(movieRecord.getUserRating() + VOTE_AVERAGE_MAX_STR);
+        Picasso.with(getContext()).load(MovieDBAPIConstants.MOVIE_DB_IMAGE_BASE_URL_DETAIL + movieRecord.getMovieImageThumbnailPath()).into(imageView);
+        new IsFavoriteMovieTask(getActivity(), movieRecord, favorite).execute();
             favorite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -119,24 +143,22 @@ public class MovieDetailActivityFragment extends Fragment {
                 }
             });
 
-            final List<MovieTrailer> trailers = new ArrayList<>();
-            trailerAdapter = new MovieTrailerAdapter(trailers);
-            final List<MovieReview> reviews = new ArrayList<>();
-            reviewAdapter = new MovieReviewAdapter(reviews);
-            movieTrailersRecyclerView.setAdapter(trailerAdapter);
-            movieReviewsRecyclerView.setAdapter(reviewAdapter);
-
-        } else {
-            Toast.makeText(getContext(), MOVIE_DB_ERROR_MESSAGE, Toast.LENGTH_LONG).show();
-        }
-
+        final List<MovieTrailer> trailers = new ArrayList<>();
+        trailerAdapter = new MovieTrailerAdapter(trailers);
+        final List<MovieReview> reviews = new ArrayList<>();
+        reviewAdapter = new MovieReviewAdapter(reviews);
+        movieTrailersRecyclerView.setAdapter(trailerAdapter);
+        movieReviewsRecyclerView.setAdapter(reviewAdapter);
+        rootView.setVisibility(View.VISIBLE);
         return rootView;
     }
     @Override
     public void onStart() {
         super.onStart();
-        fetchTrailers();
-        fetchReviews();
+        if (movieRecord !=null) {
+            fetchTrailers();
+            fetchReviews();
+        }
     }
 
     private void fetchReviews() {
