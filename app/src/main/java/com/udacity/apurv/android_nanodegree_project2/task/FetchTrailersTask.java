@@ -25,7 +25,7 @@ import java.util.List;
 import lombok.NonNull;
 
 /**
- * Created by upasa on 12/31/2016.
+ * Used to fetch trailers. Is an async task.
  */
 
 public class FetchTrailersTask extends AsyncTask<String, Void, List<MovieTrailer>> {
@@ -38,19 +38,22 @@ public class FetchTrailersTask extends AsyncTask<String, Void, List<MovieTrailer
 
     private RecyclerView view;
 
-    public FetchTrailersTask(@NonNull final MovieTrailerAdapter movieTrailerAdapter, @NonNull final RecyclerView view) {
+    public FetchTrailersTask(@NonNull final MovieTrailerAdapter movieTrailerAdapter,
+                             @NonNull final Context context,
+                             @NonNull final RecyclerView view) {
         this.movieTrailerAdapter = movieTrailerAdapter;
         this.view = view;
+        this.context = context;
     }
 
     @Override
     protected List<MovieTrailer> doInBackground(String... params) {
-        String url = MovieDBUtils.getMovieTrailerURL(params[0]);
+        String url = MovieDBUtils.getMovieTrailerURL(context, params[0]);
         Log.v(LOG_TAG, url);
         try {
             String popularMovieTrailerJson = HttpConnectionUtils.getAPIData(new URL(url));
             Log.v(LOG_TAG, popularMovieTrailerJson);
-            List<MovieTrailer> recordList = MovieDBJsonUtils.getTrailersDataFromJson(popularMovieTrailerJson);
+            List<MovieTrailer> recordList = MovieDBJsonUtils.getTrailersDataFromJson(context, popularMovieTrailerJson);
             Log.v(LOG_TAG, recordList.toString());
             return recordList;
         } catch (Exception e) {

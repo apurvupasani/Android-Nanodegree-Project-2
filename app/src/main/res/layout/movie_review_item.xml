@@ -5,29 +5,38 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingTop="10dp"
-    tools:background="@android:color/transparent">
+    android:paddingBottom="10dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:background="@drawable/review_background">
 
     <TextView
+        style="?android:attr/textAppearanceLarge"
         android:id="@+id/review_author_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
+        android:textSize="24dp"
         android:textStyle="normal|bold"
         android:text="Author Name"
+        android:contentDescription="Author Name"
         android:layout_weight="0.1"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/fab_margin"/>
+        android:gravity="center"
+        android:paddingBottom="5dp"/>
 
     <TextView
         android:id="@+id/review_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#000"
+        android:textColor="@android:color/black"
         android:text="Author Content"
+        android:contentDescription="Review Content"
         android:layout_weight="0.9"
+        style="?android:attr/textAppearanceMedium"
         android:paddingTop="10dp"
-        android:paddingLeft="@dimen/fab_margin"
-        android:paddingRight="@dimen/fab_margin"/>
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/review_text_background"/>
 
 </LinearLayout>

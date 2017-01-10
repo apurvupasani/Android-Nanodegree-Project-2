@@ -1,13 +1,10 @@
 package com.udacity.apurv.android_nanodegree_project2.fragments;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,19 +16,17 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.udacity.apurv.android_nanodegree_project2.R;
-import com.udacity.apurv.android_nanodegree_project2.activities.MovieDetailActivity;
 import com.udacity.apurv.android_nanodegree_project2.adapter.MovieArrayAdapter;
-import com.udacity.apurv.android_nanodegree_project2.constants.ActivityConstants;
 import com.udacity.apurv.android_nanodegree_project2.entities.MovieRecord;
 import com.udacity.apurv.android_nanodegree_project2.task.FetchMoviesTask;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
-import static com.udacity.apurv.android_nanodegree_project2.constants.MovieDBAPIConstants.MOVIE_DB_ERROR_MESSAGE;
 
 /**
  * This is the movie listing fragment used to list all the movies based on user preference in a grid view.
@@ -67,15 +62,11 @@ public class MovieListingFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     final MovieRecord record = movieArrayAdapter.getItem(position);
-                    /*final Intent intent = new Intent(getActivity(), MovieDetailActivity.class)
-                            .putExtra(ActivityConstants.MOVIE_RECORD_INTENT, record);
-                    startActivity(intent);*/
                     ((MovieListingBundleCallback) getActivity()).onMovieItemSelected(record);
                 }
             });
         } else {
-            Log.w(LOG_TAG, "Unable to display the grid.");
-            Toast.makeText(getContext(), MOVIE_DB_ERROR_MESSAGE, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getString(R.string.movie_db_error_message), Toast.LENGTH_LONG).show();
         }
         return rootView;
     }
@@ -84,11 +75,12 @@ public class MovieListingFragment extends Fragment {
     public void onStart() {
         super.onStart();
         performPopularMovieTaskExecution();
+        ((MovieListingBundleCallback) getActivity()).disableFragmentView();
     }
 
     private void performPopularMovieTaskExecution() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String sortOrder = preferences.getString(getString(R.string.pref_sort_order_key), "");
+        String sortOrder = preferences.getString(getContext().getString(R.string.pref_sort_order_key), StringUtils.EMPTY);
         FetchMoviesTask task = new FetchMoviesTask(movieArrayAdapter, getContext(), gridView);
         task.execute(sortOrder);
     }
@@ -105,5 +97,6 @@ public class MovieListingFragment extends Fragment {
 
     public interface MovieListingBundleCallback {
         void onMovieItemSelected(MovieRecord movieRecord);
+        void disableFragmentView();
     }
 }

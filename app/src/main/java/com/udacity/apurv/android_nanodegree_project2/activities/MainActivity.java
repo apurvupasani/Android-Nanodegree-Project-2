@@ -7,9 +7,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.udacity.apurv.android_nanodegree_project2.R;
-import com.udacity.apurv.android_nanodegree_project2.constants.ActivityConstants;
 import com.udacity.apurv.android_nanodegree_project2.entities.MovieRecord;
 import com.udacity.apurv.android_nanodegree_project2.fragments.MovieDetailActivityFragment;
 import com.udacity.apurv.android_nanodegree_project2.fragments.MovieListingFragment;
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements MovieListingFragm
     public void onMovieItemSelected(MovieRecord movieRecord) {
         if (isTwoPane) {
             Bundle arguments = new Bundle();
-            arguments.putParcelable(ActivityConstants.MOVIE_RECORD_ARG_BUNDLE, movieRecord);
+            arguments.putParcelable(getString(R.string.movie_record_args_bundle), movieRecord);
 
             MovieDetailActivityFragment movieDetailFragment = new MovieDetailActivityFragment();
             movieDetailFragment.setArguments(arguments);
@@ -73,10 +73,18 @@ public class MainActivity extends AppCompatActivity implements MovieListingFragm
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.movie_detail_container, movieDetailFragment, DETAIL_FRAGMENT_TAG)
                     .commit();
+            findViewById(R.id.movie_detail_container).setVisibility(View.VISIBLE);
         } else {
             Intent intent = new Intent(this, MovieDetailActivity.class)
-                    .putExtra(ActivityConstants.MOVIE_RECORD_INTENT, movieRecord);
+                    .putExtra(getString(R.string.movie_record_intent), movieRecord);
             startActivity(intent);
+        }
+    }
+
+    @Override
+    public void disableFragmentView() {
+        if (isTwoPane) {
+            findViewById(R.id.movie_detail_container).setVisibility(View.INVISIBLE);
         }
     }
 }

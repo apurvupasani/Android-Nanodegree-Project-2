@@ -25,7 +25,6 @@
             android:layout_height="100dp"
             android:background="@color/topbarColorDetail"
             android:gravity="center"
-            android:text="Original Title"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="@android:color/black"
@@ -68,7 +67,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:background="@color/topbarColorDetail"
-                        android:text="Release Date"
+                        android:text="@string/release_date_tab"
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Button"
                         android:textColor="@android:color/background_dark"
@@ -81,8 +80,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_below="@+id/release_date_tab"
-                        android:layout_marginTop="@dimen/activity_horizontal_margin"
                         android:text="15th Aug, 2016"
+                        android:paddingTop="10dp"
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Button"
                         android:textColor="@android:color/background_dark"
@@ -96,7 +95,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="15dp"
                         android:background="@color/topbarColorDetail"
-                        android:text="Rating"
+                        android:text="@string/rating_tab"
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Button"
                         android:textColor="@android:color/background_dark"
@@ -107,8 +106,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/rating_tab"
-                        android:text="8.9 / 10"
-                        android:layout_marginTop="@dimen/activity_horizontal_margin"
+                        android:paddingTop="10dp"
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Button"
                         android:textColor="@android:color/background_dark"
@@ -123,7 +121,7 @@
                         android:id="@+id/favImage"
                         android:clickable="true"
                         android:layout_weight="0.25"
-                        android:contentDescription="Click this to add to favorites"/>
+                        android:contentDescription="@string/content_fav_desc"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -149,7 +147,7 @@
                 android:background="@color/topbarColorDetail"
                 android:gravity="center"
                 android:paddingRight="10dp"
-                android:text="Overview"
+                android:text="@string/overview_tab"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
@@ -159,6 +157,7 @@
                 android:id="@+id/overview"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:paddingTop="10dp"
                 android:paddingLeft="@dimen/activity_vertical_margin"
                 android:paddingRight="@dimen/activity_vertical_margin"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
@@ -182,7 +181,7 @@
                 android:textColor="@android:color/black"
                 android:background="@color/topbarColorDetail"
                 android:gravity="center"
-                android:text="Trailers"
+                android:text="@string/trailers_tab"
                 android:textSize="18sp"
                 android:textStyle="normal|bold"/>
 
@@ -209,7 +208,7 @@
                 android:textColor="@android:color/black"
                 android:background="@color/topbarColorDetail"
                 android:gravity="center"
-                android:text="Reviews"
+                android:text="@string/reviews_tab"
                 android:textSize="18sp"
                 android:textStyle="normal|bold" />
 
@@ -217,6 +216,8 @@
                 android:id="@+id/reviews_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="8dp"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
 

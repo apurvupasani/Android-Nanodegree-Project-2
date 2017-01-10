@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class MovieDBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     static final String DATABASE_NAME = "movies.db";
 
@@ -29,12 +29,7 @@ public class MovieDBHelper extends SQLiteOpenHelper {
                 MovieContract.MovieEntry.COLUMN_RATING + " REAL, " +
                 //As we really dont do any operation on this.
                 MovieContract.MovieEntry.COLUMN_RELEASE_DATE + " TEXT, " +
-                //This will be useful ahead during syncadapter phase.
-                MovieContract.MovieEntry.COLUMN_UPDATE_DATE + " INTEGER, " +
-                //This will be useful ahead during syncadapter phase
-                MovieContract.MovieEntry.COLUMN_IS_FAVORITE + " TEXT, " +
-                MovieContract.MovieEntry.COLUMN_IMAGE + "  TEXT, " +
-                MovieContract.MovieEntry.COLUMN_IMAGE2 + "  TEXT " +
+                MovieContract.MovieEntry.COLUMN_IMAGE + "  TEXT " +
                 " );";
 
         sqLiteDatabase.execSQL(SQL_CREATE_MOVIES_TABLE);

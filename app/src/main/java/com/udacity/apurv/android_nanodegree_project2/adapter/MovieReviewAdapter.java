@@ -29,7 +29,6 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
     private List<MovieReview> movieReviews;
 
     public MovieReviewAdapter( List<MovieReview> reviews) {
-        Log.d(LOG_TAG, "Number of reviews" + reviews.size());
         this.movieReviews = reviews;
     }
 
@@ -37,7 +36,6 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
     public MovieReviewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.movie_review_item, parent, false);
-        Log.d(LOG_TAG, "In On CreateViewHolder" );
         return new ViewHolder(view);
     }
 
@@ -46,7 +44,6 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
         final MovieReview review = movieReviews.get(position);
         holder.getAuthor().setText(StringUtils.capitalize(review.getAuthor()));
         holder.getContent().setText(review.getContent());
-        Log.d(LOG_TAG, "In On BindViewHolder" );
     }
 
     @Override

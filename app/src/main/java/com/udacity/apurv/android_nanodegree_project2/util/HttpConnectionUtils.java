@@ -17,6 +17,8 @@ public class HttpConnectionUtils {
 
     private static String LOG_TAG = HttpConnectionUtils.class.getSimpleName();
 
+    private static final String HTTP_METHOD = "GET";
+
     public static String getAPIData(URL url) {
 
         HttpURLConnection urlConnection = null;
@@ -26,7 +28,7 @@ public class HttpConnectionUtils {
 
             // Create the request to PopularMovies API, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestMethod(HTTP_METHOD);
             urlConnection.connect();
 
             // Read the input stream into a String

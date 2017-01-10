@@ -20,10 +20,7 @@ public class TestMovieUtilities extends AndroidTestCase {
         movieValues.put(MovieContract.MovieEntry.COLUMN_OVERVIEW, "Test Overview");
         movieValues.put(MovieContract.MovieEntry.COLUMN_RATING, 2.5);
         movieValues.put(MovieContract.MovieEntry.COLUMN_RELEASE_DATE, "2016-06-30");
-        movieValues.put(MovieContract.MovieEntry.COLUMN_UPDATE_DATE, 1419033600L);
-        movieValues.put(MovieContract.MovieEntry.COLUMN_IS_FAVORITE, "Y");
         movieValues.put(MovieContract.MovieEntry.COLUMN_IMAGE, "Test image");
-        movieValues.put(MovieContract.MovieEntry.COLUMN_IMAGE2, "");
         return movieValues;
     }
 

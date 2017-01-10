@@ -91,7 +91,6 @@ public class MovieProvider extends ContentProvider {
 
         switch (match) {
             case MOVIE: {
-                normalizeDate(values);
                 long _id = db.insert(MovieContract.MovieEntry.TABLE_NAME, null, values);
                 if ( _id > 0 )
                     returnUri = MovieContract.MovieEntry.buildMovieUri(_id);
@@ -128,14 +127,6 @@ public class MovieProvider extends ContentProvider {
         return rowsDeleted;
     }
 
-    private void normalizeDate(ContentValues values) {
-        // normalize the date value
-        if (values.containsKey(MovieContract.MovieEntry.COLUMN_UPDATE_DATE)) {
-            long dateValue = values.getAsLong(MovieContract.MovieEntry.COLUMN_UPDATE_DATE);
-            values.put(MovieContract.MovieEntry.COLUMN_UPDATE_DATE, MovieContract.MovieEntry.normalizeDate(dateValue));
-        }
-    }
-
     @Override
     public int update(
             Uri uri, ContentValues values, String selection, String[] selectionArgs) {
@@ -145,7 +136,6 @@ public class MovieProvider extends ContentProvider {
 
         switch (match) {
             case MOVIE:
-                normalizeDate(values);
                 rowsUpdated = db.update(MovieContract.MovieEntry.TABLE_NAME, values, selection, selectionArgs);
                 break;
             default:
@@ -167,7 +157,6 @@ public class MovieProvider extends ContentProvider {
                 int returnCount = 0;
                 try {
                     for (ContentValues value : values) {
-                        normalizeDate(value);
                         long _id = db.insert(MovieContract.MovieEntry.TABLE_NAME, null, value);
                         if (_id != -1) {
                             returnCount++;

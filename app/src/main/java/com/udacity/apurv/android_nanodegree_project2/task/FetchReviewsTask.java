@@ -1,5 +1,6 @@
 package com.udacity.apurv.android_nanodegree_project2.task;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,20 +28,23 @@ public class FetchReviewsTask extends AsyncTask<String, Void, List<MovieReview>>
 
     private MovieReviewAdapter movieReviewAdapter;
     private RecyclerView view;
-
-    public FetchReviewsTask(@NonNull final MovieReviewAdapter movieReviewAdapter, @NonNull final RecyclerView view) {
+    private Context context;
+    public FetchReviewsTask(@NonNull final MovieReviewAdapter movieReviewAdapter,
+                            @NonNull final Context context,
+                            @NonNull final RecyclerView view) {
         this.movieReviewAdapter = movieReviewAdapter;
         this.view = view;
+        this.context = context;
     }
 
     @Override
     protected List<MovieReview> doInBackground(String... params) {
-        String url = MovieDBUtils.getMovieReviewsURL(params[0]);
+        String url = MovieDBUtils.getMovieReviewsURL(context, params[0]);
         Log.v(LOG_TAG, url);
         try {
             String popularMovieReviewJson = HttpConnectionUtils.getAPIData(new URL(url));
             Log.v(LOG_TAG, popularMovieReviewJson);
-            List<MovieReview> recordList = MovieDBJsonUtils.getReviewsDataFromJson(popularMovieReviewJson);
+            List<MovieReview> recordList = MovieDBJsonUtils.getReviewsDataFromJson(context, popularMovieReviewJson);
             Log.v(LOG_TAG, recordList.toString());
             return recordList;
         } catch (Exception e) {

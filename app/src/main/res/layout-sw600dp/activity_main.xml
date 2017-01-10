@@ -36,14 +36,19 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:paddingLeft="5dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:layout="@layout/movie_listing_fragment" />
+            <View
+                android:layout_width="5dp"
+                android:layout_height="fill_parent"
+                android:background="@android:color/darker_gray" />
 
             <FrameLayout
                 android:id="@+id/movie_detail_container"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3" />
+                android:layout_weight="3"/>
 
 
         </LinearLayout>

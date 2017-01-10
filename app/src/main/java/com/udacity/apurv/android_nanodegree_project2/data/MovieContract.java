@@ -36,13 +36,9 @@ public class MovieContract {
         public static final String COLUMN_MOVIE_ID = "movie_id";
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_IMAGE = "image";
-        public static final String COLUMN_IMAGE2 = "image2";
         public static final String COLUMN_OVERVIEW = "overview";
         public static final String COLUMN_RATING = "rating";
         public static final String COLUMN_RELEASE_DATE = "release_date";
-        public static final String COLUMN_UPDATE_DATE = "update_date";
-        //Default Y for now. Will be updated once we move to syncadapter.
-        public static final String COLUMN_IS_FAVORITE = "is_favorite";
 
         /**
          * Provides the URI for the movie with id.

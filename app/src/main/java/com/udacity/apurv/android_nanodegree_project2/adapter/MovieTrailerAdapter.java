@@ -7,15 +7,14 @@ import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.PopupMenu;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
 import com.udacity.apurv.android_nanodegree_project2.R;
-
-import com.udacity.apurv.android_nanodegree_project2.constants.MovieDBAPIConstants;
-import com.udacity.apurv.android_nanodegree_project2.entities.MovieReview;
 import com.udacity.apurv.android_nanodegree_project2.entities.MovieTrailer;
 
 import java.util.List;
@@ -34,7 +33,6 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
     private List<MovieTrailer> movieTrailers;
 
     public MovieTrailerAdapter(List<MovieTrailer> trailers) {
-        Log.d(LOG_TAG, "Number of trailers" + trailers.size());
         this.movieTrailers = trailers;
     }
 
@@ -46,23 +44,32 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
     }
 
     @Override
-    public void onBindViewHolder(MovieTrailerAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final MovieTrailerAdapter.ViewHolder holder, final int position) {
         final MovieTrailer trailer = movieTrailers.get(position);
         holder.getName().setText(trailer.getTrailerName());
         final Context c = holder.name.getContext();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String youtubeVideoId = movieTrailers.get(position).getTrailerKey();
-                try {
-                    Intent appIntent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse(MovieDBAPIConstants.MOVIE_DB_YOUTUBE_URL + youtubeVideoId));
-                    c.startActivity(appIntent);
-                } catch (ActivityNotFoundException ex) {
-                    Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse( MovieDBAPIConstants.MOVIE_DB_YOUTUBE_WEB_URL+ youtubeVideoId));
-                    c.startActivity(webIntent);
-                }
+
+                PopupMenu popup = new PopupMenu(c, v);
+                popup.getMenuInflater().inflate(R.menu.menu_trailer, popup.getMenu());
+                popup.setOnMenuItemClickListener(new android.widget.PopupMenu.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getTitle().equals("View")) {
+                            return viewYoutubeVideo(c, position);
+                        } else if (item.getTitle().equals("Share")) {
+                            return shareYoutubeURL(c, position, item);
+                        }
+                        else {
+                            return false;
+                        }
+
+                    }
+                });
+                popup.show();
             }
         });
     }
@@ -81,6 +88,31 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    private boolean viewYoutubeVideo(final Context context, final int position) {
+        String youtubeVideoId = movieTrailers.get(position).getTrailerKey();
+        try {
+            Intent appIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(context.getString(R.string.movie_db_youtube_url, youtubeVideoId)));
+            context.startActivity(appIntent);
+        } catch (ActivityNotFoundException ex) {
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(context.getString(R.string.movie_db_youtube_web_url, youtubeVideoId)));
+            context.startActivity(webIntent);
+        }
+        return true;
+    }
+
+    private boolean shareYoutubeURL(final Context context, final int position, final MenuItem menuItem) {
+        String youtubeVideoId = movieTrailers.get(position).getTrailerKey();
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.setType(context.getString(R.string.movie_db_youtube_share_type));
+        shareIntent.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.movie_db_youtube_web_url, youtubeVideoId));
+        ShareActionProvider shareActionProvider = (ShareActionProvider) menuItem.getActionProvider();
+        shareActionProvider.setShareIntent(shareIntent);
+        return true;
     }
 
 }

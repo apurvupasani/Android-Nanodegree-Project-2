@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
     <string name="app_name">Popular Movies</string>
     <string name="detail_page_name">Movie Details</string>
     <string name="action_settings">Settings</string>
@@ -14,6 +14,67 @@
     <string name="pref_sort_order_key">sort_order</string>
     <string name="title_activity_settings">Settings</string>
     <string name="content_authority">com.udacity.apurv.android_nanodegree_project2</string>
-    <string name="movie_trailer">Trailer %d</string>
 
+    <!-- Voting average string -->
+    <string name="voting_average"> %1$.1f / 10 </string>
+
+    <!-- Date formats required for conversion of dates on detail activity. -->
+    <string name="input_date_format">yyyy-MM-dd</string>
+    <string name="output_date_format">MMMM dd, yyyy</string>
+
+    <!-- Activity constants -->
+    <string name="movie_record_intent">MOVIE_RECORD_INTENT</string>
+    <string name="movie_record_args_bundle">MOVIE_RECORD_ARGS_BUNDLE</string>
+    <string name="detail_saved_state">MOVIE_STATE</string>
+
+    <!-- Movie DB API Constants -->
+
+    <string name="movie_db_api_key">api_key</string>
+    <string name="movie_db_base_url">http://api.themoviedb.org/3/</string>
+    <string name="movie_path">movie/</string>
+    <string name="movie_db_image_base_url_main">http://image.tmdb.org/t/p/w185/%1$s</string>
+    <string name="movie_db_image_base_url_detail">http://image.tmdb.org/t/p/w500/%1$s</string>
+    <string name="movie_db_error_message">Unable to fetch the information. Please try again.</string>
+    <string name="movie_language_tag">language</string>
+    <string name="movie_language">en-US</string>
+    <string name="movie_db_youtube_url">vnd.youtube:%1$s</string>
+    <string name="movie_db_youtube_web_url">http://www.youtube.com/watch?v=%1$s</string>
+    <string name="movie_db_youtube_share_type">text/plain</string>
+
+    <!--Movie DB API results constants -->
+
+    <!-- Common JSON fields -->
+    <string name="movie_results_field">results</string>
+    <string name="id_field">id</string>
+
+    <!--Movie fields -->
+    <string name="thumbnail_field">poster_path</string>
+    <string name="original_title_field">title</string>
+    <string name="overview_field">overview</string>
+    <string name="release_date_field">release_date</string>
+    <string name="vote_average_field">vote_average</string>
+
+    <!-- Trailer fields -->
+    <string name="trailer_site">site</string>
+    <string name="trailer_key">key</string>
+    <string name="trailer_name">name</string>
+    <string name="trailer_size">size</string>
+    <string name="trailer_type">type</string>
+    <string name="trailer_site_youtube">YouTube</string>
+
+    <!-- Review fields-->
+    <string name="review_author">author</string>
+    <string name="review_content">content</string>
+
+    <!-- Favorites fields -->
+    <string name="add_favorite_msg">Movie added to favorites.</string>
+    <string name="remove_favorite_msg">Movie removed from favorites.</string>
+
+    <!-- Layout Strings -->
+    <string name="release_date_tab">Release Date</string>
+    <string name="rating_tab">Rating</string>
+    <string name="content_fav_desc">Click this to add to favorites</string>
+    <string name="overview_tab">Overview</string>
+    <string name="trailers_tab">Trailers</string>
+    <string name="reviews_tab">Reviews</string>
 </resources>

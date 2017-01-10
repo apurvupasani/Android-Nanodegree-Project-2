@@ -1,32 +1,21 @@
 package com.udacity.apurv.android_nanodegree_project2.fragments;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.apurv.android_nanodegree_project2.R;
 import com.udacity.apurv.android_nanodegree_project2.adapter.MovieReviewAdapter;
 import com.udacity.apurv.android_nanodegree_project2.adapter.MovieTrailerAdapter;
-import com.udacity.apurv.android_nanodegree_project2.constants.ActivityConstants;
-import com.udacity.apurv.android_nanodegree_project2.constants.MovieDBAPIConstants;
-import com.udacity.apurv.android_nanodegree_project2.constants.MovieDBAPIResultConstants;
 import com.udacity.apurv.android_nanodegree_project2.entities.MovieRecord;
 import com.udacity.apurv.android_nanodegree_project2.entities.MovieReview;
 import com.udacity.apurv.android_nanodegree_project2.entities.MovieTrailer;
@@ -41,7 +30,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-import static com.udacity.apurv.android_nanodegree_project2.constants.MovieDBAPIConstants.MOVIE_DB_ERROR_MESSAGE;
 import static com.udacity.apurv.android_nanodegree_project2.util.MovieDBJsonUtils.convertDateToProperFormat;
 
 /**
@@ -50,10 +38,6 @@ import static com.udacity.apurv.android_nanodegree_project2.util.MovieDBJsonUtil
 public class MovieDetailActivityFragment extends Fragment {
 
     private static final String LOG_TAG = MovieDetailActivityFragment.class.getSimpleName();
-
-    private static final String VOTE_AVERAGE_MAX_STR = " / 10";
-
-    private static final String SAVED_STATE_OBJECT = "MOVIE_STATE";
 
     @Bind(R.id.original_title)
     TextView originalTitle;
@@ -98,7 +82,7 @@ public class MovieDetailActivityFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelable(SAVED_STATE_OBJECT, movieRecord);
+        outState.putParcelable(getString(R.string.detail_saved_state), movieRecord);
         super.onSaveInstanceState(outState);
     }
     @Override
@@ -107,38 +91,38 @@ public class MovieDetailActivityFragment extends Fragment {
         View rootView =  inflater.inflate(R.layout.fragment_movie_detail, container, false);
         ButterKnife.bind(this, rootView);
 
-
-        Log.v(LOG_TAG, "In movie fragment view");
-        if(savedInstanceState == null || !savedInstanceState.containsKey(SAVED_STATE_OBJECT)) {
+        if(savedInstanceState == null || !savedInstanceState.containsKey(getString(R.string.detail_saved_state))) {
             //Handle tablet layout args
             if ( getArguments() != null) {
-                movieRecord =  getArguments().getParcelable(ActivityConstants.MOVIE_RECORD_ARG_BUNDLE);
+                movieRecord =  getArguments().getParcelable(getString(R.string.movie_record_args_bundle));
             } else {
                 Intent intent = getActivity().getIntent();
-                if (intent != null && intent.hasExtra(ActivityConstants.MOVIE_RECORD_INTENT)) {
-                    movieRecord = (MovieRecord) intent.getParcelableExtra(ActivityConstants.MOVIE_RECORD_INTENT);
+                if (intent != null && intent.hasExtra(getString(R.string.movie_record_intent))) {
+                    movieRecord = (MovieRecord) intent.getParcelableExtra(getString(R.string.movie_record_intent));
                 } else {
                     rootView.setVisibility(View.INVISIBLE);
                     return rootView;
                 }
             }
         } else {
-            //TODO: Put reviews and trailer info in this.
-            movieRecord = savedInstanceState.getParcelable(SAVED_STATE_OBJECT);
+            movieRecord = savedInstanceState.getParcelable(getString(R.string.detail_saved_state));
         }
         //Set the information in appropriate fields
         movieId = movieRecord.getMovieId();
         originalTitle.setText(movieRecord.getOriginalTitle());
         overview.setText(movieRecord.getOverview());
         overview.setMovementMethod(new ScrollingMovementMethod());
-        releaseDate.setText(convertDateToProperFormat(movieRecord.getReleaseDate()));
-        userRating.setText(movieRecord.getUserRating() + VOTE_AVERAGE_MAX_STR);
-        Picasso.with(getContext()).load(MovieDBAPIConstants.MOVIE_DB_IMAGE_BASE_URL_DETAIL + movieRecord.getMovieImageThumbnailPath()).into(imageView);
+        releaseDate.setText(convertDateToProperFormat(getContext(), movieRecord.getReleaseDate()));
+        userRating.setText(getString(R.string.voting_average, movieRecord.getUserRating()));
+
+        Picasso.with(getContext())
+                .load(getString(R.string.movie_db_image_base_url_detail,movieRecord.getMovieImageThumbnailPath()))
+                .into(imageView);
+
         new IsFavoriteMovieTask(getActivity(), movieRecord, favorite).execute();
             favorite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(LOG_TAG, "Movie Record" + movieRecord.getMovieImageThumbnailPath());
                     new UpdateFavoriteMovieTask(getActivity(), movieRecord, favorite).execute();
                 }
             });
@@ -155,19 +139,17 @@ public class MovieDetailActivityFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (movieRecord !=null) {
+        if (movieRecord != null) {
             fetchTrailers();
             fetchReviews();
         }
     }
 
     private void fetchReviews() {
-        new FetchReviewsTask(reviewAdapter, movieReviewsRecyclerView).execute(movieId);
-        Log.d(LOG_TAG, "In fetchReviews" + reviewAdapter.getItemCount());
+        new FetchReviewsTask(reviewAdapter, getContext(), movieReviewsRecyclerView).execute(movieId);
     }
     private void fetchTrailers() {
-        new FetchTrailersTask(trailerAdapter, movieTrailersRecyclerView).execute(movieId);
-        Log.d(LOG_TAG, "In fetchTrailers"+ trailerAdapter.getItemCount());
+        new FetchTrailersTask(trailerAdapter, getContext(), movieTrailersRecyclerView).execute(movieId);
     }
 
 

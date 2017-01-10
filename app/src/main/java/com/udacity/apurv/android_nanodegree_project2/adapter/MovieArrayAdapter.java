@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.apurv.android_nanodegree_project2.R;
-import com.udacity.apurv.android_nanodegree_project2.constants.MovieDBAPIConstants;
 import com.udacity.apurv.android_nanodegree_project2.entities.MovieRecord;
 
 import java.util.List;
@@ -20,9 +19,10 @@ import java.util.List;
 
 public class MovieArrayAdapter extends ArrayAdapter<MovieRecord> {
     private static final String LOG_TAG = MovieArrayAdapter.class.getSimpleName();
-
+    private Context context;
     public MovieArrayAdapter(Context context, int layout, int id, List<MovieRecord> movieRecordList) {
         super(context, layout, id, movieRecordList);
+        this.context = context;
     }
 
     @Override
@@ -32,7 +32,8 @@ public class MovieArrayAdapter extends ArrayAdapter<MovieRecord> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.grid_item_movie, parent, false);
         }
         ImageView imageView = (ImageView) convertView.findViewById(R.id.grid_item_movie_imageview);
-        Picasso.with(getContext()).load(MovieDBAPIConstants.MOVIE_DB_IMAGE_BASE_URL_MAIN + movieRecord.getMovieImageThumbnailPath()).into(imageView);
+
+        Picasso.with(getContext()).load(context.getString(R.string.movie_db_image_base_url_main, movieRecord.getMovieImageThumbnailPath())).into(imageView);
         return convertView;
     }
 }

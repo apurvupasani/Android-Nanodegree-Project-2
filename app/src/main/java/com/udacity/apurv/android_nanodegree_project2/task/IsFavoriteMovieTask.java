@@ -4,29 +4,28 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
-import com.udacity.apurv.android_nanodegree_project2.R;
-import com.udacity.apurv.android_nanodegree_project2.data.Utility;
+import com.udacity.apurv.android_nanodegree_project2.data.MovieUtility;
 import com.udacity.apurv.android_nanodegree_project2.entities.MovieRecord;
 
 /**
- * Created by upasa on 12/31/2016.
+ * Async task to find out whether the movie is favorite or not.
  */
 
 public class IsFavoriteMovieTask extends AsyncTask<Void, Void, Boolean> {
-    private Context mContext;
+    private Context context;
     private MovieRecord movieRecord;
     private Boolean performAction;
     private ImageView imageView;
 
     public IsFavoriteMovieTask(Context mContext, MovieRecord movieRecord, ImageView favorite) {
-        this.mContext = mContext;
+        this.context = mContext;
         this.movieRecord = movieRecord;
         this.imageView = favorite;
     }
 
     @Override
     protected Boolean doInBackground(Void... params) {
-        return Utility.isFavourite(mContext, movieRecord.getMovieId());
+        return MovieUtility.isFavourite(context, movieRecord.getMovieId());
     }
 
 
