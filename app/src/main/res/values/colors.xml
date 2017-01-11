@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name ="topbarColorDetail">#fbab18</color>
+
+    <!-- Layout colors -->
+    <color name="review_background_color">#22000000</color>
 </resources>

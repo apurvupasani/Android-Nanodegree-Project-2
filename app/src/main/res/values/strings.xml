@@ -26,6 +26,7 @@
     <string name="movie_record_intent">MOVIE_RECORD_INTENT</string>
     <string name="movie_record_args_bundle">MOVIE_RECORD_ARGS_BUNDLE</string>
     <string name="detail_saved_state">MOVIE_STATE</string>
+    <string name="main_saved_state">MAIN_MOVIE_STATE</string>
 
     <!-- Movie DB API Constants -->
 
@@ -77,4 +78,8 @@
     <string name="overview_tab">Overview</string>
     <string name="trailers_tab">Trailers</string>
     <string name="reviews_tab">Reviews</string>
+
+    <!-- Trailer item click strings -->
+    <string name="trailer_item_view">View</string>
+    <string name="trailer_item_share">Share</string>
 </resources>

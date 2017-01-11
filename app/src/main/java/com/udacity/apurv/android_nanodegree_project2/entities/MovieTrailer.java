@@ -9,11 +9,10 @@ import lombok.ToString;
 
 /**
  * This is a model used to store trailer information.
- * Created by upasa on 12/31/2016.
  */
 @Data
 @ToString
-public class MovieTrailer implements Serializable {
+public class MovieTrailer {
     private String trailerId;
     private String trailerKey;
     private String trailerName;

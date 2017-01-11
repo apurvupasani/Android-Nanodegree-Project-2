@@ -95,8 +95,19 @@ public class MovieListingFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * This interface is used to perform on click callback for grid item click.
+     */
     public interface MovieListingBundleCallback {
+        /**
+         * This is used to perform fragment load on grid item click.
+         * @param movieRecord
+         */
         void onMovieItemSelected(MovieRecord movieRecord);
+
+        /**
+         * This is used for removi
+         */
         void disableFragmentView();
     }
 }

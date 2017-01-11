@@ -24,7 +24,8 @@ import butterknife.ButterKnife;
 import lombok.Getter;
 
 /**
- * Created by upasa on 12/31/2016.
+ * Used to populate movie trailers.
+ *
  */
 
 public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapter.ViewHolder> {
@@ -58,9 +59,9 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getTitle().equals("View")) {
+                        if (item.getTitle().equals(c.getString(R.string.trailer_item_view))) {
                             return viewYoutubeVideo(c, position);
-                        } else if (item.getTitle().equals("Share")) {
+                        } else if (item.getTitle().equals(c.getString(R.string.trailer_item_share))) {
                             return shareYoutubeURL(c, position, item);
                         }
                         else {

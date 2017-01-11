@@ -12,7 +12,6 @@ import java.util.List;
 
 /**
  * This class contains utility methods to access the DB layer
- * Created by upasa on 12/31/2016.
  */
 
 public class MovieUtility {

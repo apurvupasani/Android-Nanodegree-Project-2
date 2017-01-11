@@ -1,6 +1,7 @@
 package com.udacity.apurv.android_nanodegree_project2.task;
 
 import android.content.Context;
+import android.graphics.Movie;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.GridView;

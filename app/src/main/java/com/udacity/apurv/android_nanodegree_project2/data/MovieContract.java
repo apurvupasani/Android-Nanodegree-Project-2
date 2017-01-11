@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
 import android.text.format.Time;
 
 /**
- * Created by upasa on 12/29/2016.
+ * Defines a contract for storing movie details in DB.
  */
 
 public class MovieContract {
@@ -47,14 +47,6 @@ public class MovieContract {
          */
         public static Uri buildMovieUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
-        }
-
-        public static long normalizeDate(long startDate) {
-            // normalize the start date to the beginning of the (UTC) day
-            Time time = new Time();
-            time.set(startDate);
-            int julianDay = Time.getJulianDay(startDate, time.gmtoff);
-            return time.setJulianDay(julianDay);
         }
     }
 }

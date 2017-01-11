@@ -12,6 +12,7 @@ import lombok.ToString;
 
 /**
  * POJO for MovieRecord. Implements serializable as it needs to be passed around via Intents.
+ * Added parcelable to bundle the request for tablet layout.
  */
 @Data
 @ToString

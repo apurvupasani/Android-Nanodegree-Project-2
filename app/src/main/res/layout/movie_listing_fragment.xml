@@ -9,7 +9,7 @@
     <GridView
         android:id="@+id/gridview_movies"
         android:numColumns="auto_fit"
-        android:columnWidth="150dp"
+        android:columnWidth="@dimen/listing_fragment_item_width"
         android:stretchMode="columnWidth"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

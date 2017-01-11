@@ -20,7 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 
 /**
- * Created by upasa on 12/31/2016.
+ * Used to populate movie reviews.
  */
 
 public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.ViewHolder> {
@@ -50,6 +50,7 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewAdapter.
     public int getItemCount() {
         return movieReviews.size();
     }
+
     @Getter
     public class ViewHolder extends RecyclerView.ViewHolder {
 

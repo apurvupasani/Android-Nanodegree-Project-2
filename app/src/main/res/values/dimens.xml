@@ -3,4 +3,39 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+
+    <!-- Layouts dimensions -->
+    <dimen name="small_corner_radius">3dp</dimen>
+    <dimen name="small_stroke_width">0.5dp</dimen>
+    <dimen name="large_stroke_width">1dp</dimen>
+
+    <!--Listing fragments -->
+    <dimen name="listing_fragment_item_width">150dp</dimen>
+
+    <!--Movie review item -->
+    <dimen name="review_small_padding">5dp</dimen>
+    <dimen name="review_med_padding">8dp</dimen>
+    <dimen name="review_large_padding">10dp</dimen>
+    <dimen name="review_author_text_size">24dp</dimen>
+
+    <!--Movie trailer item -->
+    <dimen name="trailer_small_padding">5dp</dimen>
+    <dimen name="trailer_med_padding">16dp</dimen>
+    <dimen name="trailer_large_padding">18dp</dimen>
+    <dimen name="trailer_text_size">18dp</dimen>
+
+    <!-- Detail page -->
+    <dimen name="title_height">100dp</dimen>
+    <dimen name="title_text_size">20sp</dimen>
+    <dimen name="title_text_med_size">18sp</dimen>
+    <dimen name="title_text_sml_size">16sp</dimen>
+    <dimen name="mid_layout_height">250dp</dimen>
+    <dimen name="mid_layout_margin_top">30dp</dimen>
+    <dimen name="detail_page_small_padding">10dp</dimen>
+    <dimen name="detail_page_med_padding">15dp</dimen>
+    <dimen name="detail_page_large_padding">30dp</dimen>
+    <dimen name="detail_page_xlarge_padding">50dp</dimen>
+    <dimen name="detail_page_xxxlarge_padding">200dp</dimen>
+
 </resources>

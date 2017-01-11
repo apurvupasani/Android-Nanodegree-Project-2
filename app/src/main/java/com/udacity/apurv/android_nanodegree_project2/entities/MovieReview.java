@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * Created by upasa on 12/31/2016.
+ * POJO for movie review.
  */
 @Data
 @ToString

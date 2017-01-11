@@ -11,7 +11,7 @@ import android.net.Uri;
 import android.util.Log;
 
 /**
- * Created by upasa on 12/29/2016.
+ * Content provider for movie DB.
  */
 
 public class MovieProvider extends ContentProvider {
@@ -46,9 +46,7 @@ public class MovieProvider extends ContentProvider {
     public String getType(Uri uri) {
 
         // Use the Uri Matcher to determine what kind of URI this is.
-        Log.i(LOG_TAG, "Uri from the test " + uri.toString());
         final int match = sUriMatcher.match(uri);
-        Log.i(LOG_TAG, "Match value " + match);
         switch (match) {
          case MOVIE:
                 return MovieContract.MovieEntry.CONTENT_TYPE;
@@ -145,32 +143,6 @@ public class MovieProvider extends ContentProvider {
             getContext().getContentResolver().notifyChange(uri, null);
         }
         return rowsUpdated;
-    }
-
-    @Override
-    public int bulkInsert(Uri uri, ContentValues[] values) {
-        final SQLiteDatabase db = movieDBHelper.getWritableDatabase();
-        final int match = sUriMatcher.match(uri);
-        switch (match) {
-            case MOVIE:
-                db.beginTransaction();
-                int returnCount = 0;
-                try {
-                    for (ContentValues value : values) {
-                        long _id = db.insert(MovieContract.MovieEntry.TABLE_NAME, null, value);
-                        if (_id != -1) {
-                            returnCount++;
-                        }
-                    }
-                    db.setTransactionSuccessful();
-                } finally {
-                    db.endTransaction();
-                }
-                getContext().getContentResolver().notifyChange(uri, null);
-                return returnCount;
-            default:
-                return super.bulkInsert(uri, values);
-        }
     }
 
     @Override

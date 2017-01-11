@@ -3,10 +3,10 @@
 
     <item
         android:id="@+id/view_youtube"
-        android:title="View" />
+        android:title="@string/trailer_item_view" />
     <item
         android:id="@+id/share_youtube"
-        android:title="Share"
+        android:title="@string/trailer_item_share"
         android:actionProviderClass="android.widget.ShareActionProvider"/>
 
 </menu>

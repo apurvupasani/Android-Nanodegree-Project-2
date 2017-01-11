@@ -22,13 +22,13 @@
         <TextView
             android:id="@+id/original_title"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/title_height"
             android:background="@color/topbarColorDetail"
             android:gravity="center"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:textSize="@dimen/title_text_size"
             android:textStyle="normal|bold"
             tools:textAlignment="center" />
 
@@ -36,8 +36,8 @@
         <LinearLayout
             android:id="@+id/second_part"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginTop="30dp">
+            android:layout_height="@dimen/mid_layout_height"
+            android:layout_marginTop="@dimen/mid_layout_margin_top">
 
             <ImageView
                 android:id="@+id/poster_image"
@@ -46,8 +46,8 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:cropToPadding="true"
-                android:padding="1dp"
-                android:paddingLeft="15dp"
+                android:padding="@dimen/large_stroke_width"
+                android:paddingLeft="@dimen/detail_page_med_padding"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/ic_launcher" />
 
@@ -58,7 +58,7 @@
                 android:layout_weight="1"
                 android:gravity="top"
                 android:orientation="vertical"
-                android:paddingRight="10dp">
+                android:paddingRight="@dimen/detail_page_small_padding">
 
                     <TextView
                         android:id="@+id/release_date_tab"
@@ -80,8 +80,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_below="@+id/release_date_tab"
-                        android:text="15th Aug, 2016"
-                        android:paddingTop="10dp"
+                        android:paddingTop="@dimen/detail_page_small_padding"
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Button"
                         android:textColor="@android:color/background_dark"
@@ -93,7 +92,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="@dimen/detail_page_med_padding"
                         android:background="@color/topbarColorDetail"
                         android:text="@string/rating_tab"
                         android:textAlignment="center"
@@ -106,7 +105,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/rating_tab"
-                        android:paddingTop="10dp"
+                        android:paddingTop="@dimen/detail_page_small_padding"
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Button"
                         android:textColor="@android:color/background_dark"
@@ -137,32 +136,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:paddingTop="@dimen/detail_page_small_padding"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/overview_tab"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/detail_page_xlarge_padding"
                 android:background="@color/topbarColorDetail"
                 android:gravity="center"
-                android:paddingRight="10dp"
+                android:paddingRight="@dimen/detail_page_small_padding"
                 android:text="@string/overview_tab"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textColor="@android:color/black"
-                android:textSize="18sp"
+                android:textSize="@dimen/title_text_size"
                 android:textStyle="normal|bold" />
 
             <TextView
                 android:id="@+id/overview"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:paddingTop="10dp"
+                android:layout_height="@dimen/detail_page_xxxlarge_padding"
+                android:paddingTop="@dimen/detail_page_small_padding"
                 android:paddingLeft="@dimen/activity_vertical_margin"
                 android:paddingRight="@dimen/activity_vertical_margin"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textColor="@android:color/background_dark"
-                android:textSize="16sp"
+                android:textSize="@dimen/title_text_sml_size"
                 android:maxLines = "8"
                 android:scrollbars="vertical" />
 
@@ -176,13 +175,13 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/detail_page_xlarge_padding"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textColor="@android:color/black"
                 android:background="@color/topbarColorDetail"
                 android:gravity="center"
                 android:text="@string/trailers_tab"
-                android:textSize="18sp"
+                android:textSize="@dimen/title_text_size"
                 android:textStyle="normal|bold"/>
 
             <android.support.v7.widget.RecyclerView
@@ -199,25 +198,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="10dp">
+            android:paddingTop="@dimen/detail_page_small_padding">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/detail_page_xlarge_padding"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textColor="@android:color/black"
                 android:background="@color/topbarColorDetail"
                 android:gravity="center"
                 android:text="@string/reviews_tab"
-                android:textSize="18sp"
+                android:textSize="@dimen/title_text_size"
                 android:textStyle="normal|bold" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/reviews_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="8dp"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
 
