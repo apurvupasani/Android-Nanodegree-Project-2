@@ -43,7 +43,6 @@ public class FetchReviewsTask extends AsyncTask<String, Void, List<MovieReview>>
         Log.v(LOG_TAG, url);
         try {
             String popularMovieReviewJson = HttpConnectionUtils.getAPIData(new URL(url));
-            Log.v(LOG_TAG, popularMovieReviewJson);
             List<MovieReview> recordList = MovieDBJsonUtils.getReviewsDataFromJson(context, popularMovieReviewJson);
             Log.v(LOG_TAG, recordList.toString());
             return recordList;

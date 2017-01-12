@@ -28,11 +28,13 @@ public class FetchMoviesTask extends AsyncTask<String, Void, List<MovieRecord>> 
     private MovieArrayAdapter movieArrayAdapter;
     private Context context;
     private GridView view;
+    private List<MovieRecord> movieRecords;
 
-    public FetchMoviesTask(@NonNull final MovieArrayAdapter movieArrayAdapter,@NonNull final Context context,@NonNull final GridView view) {
+    public FetchMoviesTask(@NonNull final MovieArrayAdapter movieArrayAdapter,@NonNull final Context context,@NonNull final GridView view, final List<MovieRecord> movieRecords) {
         this.movieArrayAdapter = movieArrayAdapter;
         this.context = context;
         this.view = view;
+        this.movieRecords = movieRecords;
     }
     private String LOG_TAG = FetchMoviesTask.class.getSimpleName();
 
@@ -66,6 +68,8 @@ public class FetchMoviesTask extends AsyncTask<String, Void, List<MovieRecord>> 
                 movieArrayAdapter.add(record);
             }
             view.setAdapter(movieArrayAdapter);
+            movieRecords.clear();
+            movieRecords.addAll(result);
         } else {
             Toast.makeText(context, "Unable to show the movie information", Toast.LENGTH_LONG).show();
         }
