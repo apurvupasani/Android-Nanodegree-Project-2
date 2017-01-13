@@ -111,7 +111,8 @@ public class MovieListingFragment extends Fragment {
 
     private void performPopularMovieTaskExecution() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String sortOrder = preferences.getString(getContext().getString(R.string.pref_sort_order_key), StringUtils.EMPTY);
+        String sortOrder = preferences.getString(getContext().getString(R.string.pref_sort_order_key), getString(R.string.pref_sort_order_popular));
+
         if (!sortSetting.equals(sortOrder) || sortOrder.equals(getString(R.string.pref_sort_order_favorites))) {
             FetchMoviesTask task = new FetchMoviesTask(movieArrayAdapter, getContext(), gridView, movieRecords);
             task.execute(sortOrder);
@@ -140,7 +141,7 @@ public class MovieListingFragment extends Fragment {
         void onMovieItemSelected(MovieRecord movieRecord);
 
         /**
-         * This is used for removi
+         * This is used for disabling the fragment temporarily.
          */
         void disableFragmentView();
     }
